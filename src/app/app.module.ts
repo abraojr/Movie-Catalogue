@@ -14,6 +14,7 @@ import { HeaderComponent } from './shared/component/header/header.component';
 import { MoviesModule } from './movies/movies.module';
 import { TableComponent } from './shared/component/table/table.component';
 import { FieldsModule } from './shared/component/fields/fields.module';
+import { AlertComponent } from './shared/component/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { FieldsModule } from './shared/component/fields/fields.module';
     FooterComponent,
     TableComponent,
     HeaderComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +33,9 @@ import { FieldsModule } from './shared/component/fields/fields.module';
     AppRoutingModule,
     MoviesModule,
     FieldsModule
+  ],
+  entryComponents: [
+    AlertComponent
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt' }],
   bootstrap: [AppComponent]

@@ -1,6 +1,9 @@
+import { Alert } from './../../shared/models/alert';
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
 import { MoviesService } from "src/app/core/movies.service";
+import { AlertComponent } from "src/app/shared/component/alert/alert.component";
 import { ValidateFieldsService } from "src/app/shared/component/fields/validate-fields.service";
 import { Movie } from "src/app/shared/models/movie";
 
@@ -14,12 +17,12 @@ export class RegisterMoviesComponent implements OnInit {
   register: FormGroup;
   genres: Array<string>;
 
-  constructor(public validation: ValidateFieldsService, private fb: FormBuilder, private movieService: MoviesService) {
-  };
+  constructor(public validation: ValidateFieldsService, public dialog: MatDialog, private fb: FormBuilder, private movieService: MoviesService) {
+  }
 
   get f() {
     return this.register.controls;
-  };
+  }
 
   ngOnInit(): void {
     this.register = this.fb.group({
@@ -33,7 +36,7 @@ export class RegisterMoviesComponent implements OnInit {
     });
 
     this.genres = ["Action", "Romance", "Adventure", "Horror", "Science Fiction", "Comedy", "Drama"];
-  };
+  }
 
   submit(): void {
     this.register.markAllAsTouched();
@@ -42,16 +45,26 @@ export class RegisterMoviesComponent implements OnInit {
     }
     const movie = this.register.getRawValue() as Movie;
     this.save(movie);
-  };
+  }
 
   resetForm(): void {
     this.register.reset();
-  };
+  }
 
   private save(movie: Movie): void {
     this.movieService.save(movie).subscribe({
-      next: () => alert("SUCCESS"),
+      next: () => {
+        const config = {
+          data: {
+            btnSuccess: "Go to listing",
+            btnCancel: "Register a new movie",
+            btnCancelColor: "primary",
+            hasBtnClose: true
+          } as Alert
+        };
+        const dialogRef = this.dialog.open(AlertComponent, config);
+      },
       error: () => alert("ERROR ON SAVE")
-    });
-  };
-};
+    })
+  }
+}
