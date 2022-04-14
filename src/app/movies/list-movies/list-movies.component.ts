@@ -1,7 +1,9 @@
+import { ConfigParams } from './../../shared/models/config-params';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from 'src/app/core/movies.service';
 import { Movie } from 'src/app/shared/models/movie';
+import { config } from 'rxjs';
 
 @Component({
   selector: 'dio-movie-list',
@@ -10,10 +12,10 @@ import { Movie } from 'src/app/shared/models/movie';
 })
 export class ListMoviesComponent implements OnInit {
 
-  readonly qntyPage = 4;
-  page = 0;
-  text: string;
-  genre: string;
+  config: ConfigParams = {
+    page: 0,
+    limit: 4,
+  }
   movies: Movie[] = [];
   filtersListing: FormGroup;
   genres: Array<string>;
@@ -30,14 +32,14 @@ export class ListMoviesComponent implements OnInit {
 
     this.filtersListing.get("text")?.valueChanges.subscribe({
       next: (val: string) => {
-        this.text = val;
+        this.config.search = val;
         this.resetQuery();
       }
     });
 
     this.filtersListing.get("genre")?.valueChanges.subscribe({
       next: (val: string) => {
-        this.genre = val;
+        this.config.field = { type: "genre", value: val };
         this.resetQuery();
       }
     });
@@ -52,16 +54,15 @@ export class ListMoviesComponent implements OnInit {
   };
 
   private listMovies(): void {
-    this.page++;
-    this.movieService.list(this.page, this.qntyPage, this.text, this.genre).subscribe({
+    this.config.page++;
+    this.movieService.list(this.config).subscribe({
       next: (movies: Movie[]) => this.movies.push(...movies)
     });
   };
 
   private resetQuery(): void {
-    this.page = 0;
+    this.config.page = 0;
     this.movies = [];
     this.listMovies();
   };
-
 };
