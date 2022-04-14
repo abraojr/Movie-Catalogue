@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ValidateFieldsService } from "src/app/shared/component/fields/validate-fields.service";
 
 @Component({
   selector: "dio-register-movies",
@@ -10,7 +11,7 @@ export class RegisterMoviesComponent implements OnInit {
 
   register: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(public validation: ValidateFieldsService, private fb: FormBuilder) {
   }
 
   get f() {

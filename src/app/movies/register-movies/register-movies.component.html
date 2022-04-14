@@ -5,16 +5,16 @@
       <mat-card-content>
         <mat-form-field class="full-width">
           <input matInput placeholder="Title" name="title" formControlName="title">
-          <mat-error *ngIf="(register.touched || register.dirty) && f['title'].errors?.['required']">
+          <mat-error *ngIf="validation.hasErrorValidate(f['title'],'required')">
             Required field.</mat-error>
-          <mat-error *ngIf="(register.touched || register.dirty) && f['title'].errors?.['minlength']">
+          <mat-error *ngIf="validation.hasErrorValidate(f['title'],'minlength')">
             Field must be at least 2 characters.</mat-error>
-          <mat-error *ngIf="(register.touched || register.dirty) && f['title'].errors?.['maxlength']">
+          <mat-error *ngIf="validation.hasErrorValidate(f['title'],'maxlength')">
             Field can have a maximum of 256 characters.</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
           <input matInput placeholder="Image Link" name="urlImage" formControlName="urlImage">
-          <mat-error *ngIf="(register.touched || register.dirty) && f['urlImage'].errors?.['minlength']">
+          <mat-error *ngIf="validation.hasErrorValidate(f['urlImage'],'minlength')">
             Field must be at least 10 characters.</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
@@ -22,7 +22,7 @@
             formControlName="releaseDate" (click)="picker.open()">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="(register.touched || register.dirty) && f['releaseDate'].errors?.['required']">
+          <mat-error *ngIf="validation.hasErrorValidate(f['releaseDate'],'required')">
             Required field.</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
@@ -31,16 +31,16 @@
         <mat-form-field class="full-width">
           <input matInput type="number" min="0" max="10" step="0.1" placeholder="IMDb Rating" name="rating"
             formControlName="rating">
-          <mat-error *ngIf="(register.touched || register.dirty) && f['rating'].errors?.['required']">
+          <mat-error *ngIf="validation.hasErrorValidate(f['rating'],'required')">
             Required field.</mat-error>
-          <mat-error *ngIf="(register.touched || register.dirty) && f['rating'].errors?.['min']">
+          <mat-error *ngIf="validation.hasErrorValidate(f['rating'],'min')">
             Field must have at least the value 0.</mat-error>
-          <mat-error *ngIf="(register.touched || register.dirty) && f['rating'].errors?.['max']">
+          <mat-error *ngIf="validation.hasErrorValidate(f['rating'],'max')">
             Field can have a maximum value of 10.</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
           <input matInput placeholder="IMDb Link" name="urlIMDb" formControlName="urlIMDb">
-          <mat-error *ngIf="(register.touched || register.dirty) && f['urlIMDb'].errors?.['minlength']">
+          <mat-error *ngIf="validation.hasErrorValidate(f['urlIMDb'],'minlength')">
             Field must be at least 10 characters.</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
@@ -51,7 +51,7 @@
             <mat-option value="Romance">Romance</mat-option>
             <mat-option value="Horror">Horror</mat-option>
           </mat-select>
-          <mat-error *ngIf="(register.touched || register.dirty) && f['genre'].errors?.['required']">
+          <mat-error *ngIf="validation.hasErrorValidate(f['genre'],'required')">
             Required field.</mat-error>
         </mat-form-field>
       </mat-card-content>
