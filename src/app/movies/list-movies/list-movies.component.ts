@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from 'src/app/core/movies.service';
 import { Movie } from 'src/app/shared/models/movie';
-import { config } from 'rxjs';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'dio-movie-list',
@@ -11,6 +11,8 @@ import { config } from 'rxjs';
   styleUrls: ['./list-movies.component.scss']
 })
 export class ListMoviesComponent implements OnInit {
+
+  readonly withoutImage = "https://www.termoparts.com.br/wp-content/uploads/2017/10/no-image.jpg";
 
   config: ConfigParams = {
     page: 0,
@@ -30,7 +32,7 @@ export class ListMoviesComponent implements OnInit {
       genre: [""]
     });
 
-    this.filtersListing.get("text")?.valueChanges.subscribe({
+    this.filtersListing.get("text")?.valueChanges.pipe(debounceTime(400)).subscribe({
       next: (val: string) => {
         this.config.search = val;
         this.resetQuery();
