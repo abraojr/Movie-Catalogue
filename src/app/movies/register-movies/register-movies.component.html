@@ -1,40 +1,44 @@
 <mat-toolbar class="app-title">Register Movie</mat-toolbar>
 <div class="main-div">
   <mat-card class="center width50">
-    <mat-card-content>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Title">
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Image Link">
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput [matDatepicker]="picker" placeholder="Release Date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <textarea matInput placeholder="Description"></textarea>
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="IMDb Rating">
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="IMDb Link">
-      </mat-form-field>
-      <mat-form-field class="full-width">
-        <mat-select placeholder="Genre">
-          <mat-option value="Action">Action</mat-option>
-          <mat-option value="Adventure">Adventure</mat-option>
-          <mat-option value="Science Fiction">Science Fiction</mat-option>
-          <mat-option value="Romance">Romance</mat-option>
-          <mat-option value="Horror">Horror</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-card-content>
-    <mat-card-actions>
-      <button color="accent" mat-raised-button>Save</button>
-      <button color="warn" mat-raised-button>Cancel</button>
-    </mat-card-actions>
+    <form [formGroup]="register" (ngSubmit)="save()" (ngReset)="resetForm()">
+      <mat-card-content>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Title" name="title" formControlName="title">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Image Link" name="urlImage" formControlName="urlImage">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput [matDatepicker]="picker" placeholder="Release Date" name="releaseDate"
+            formControlName="releaseDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <textarea matInput placeholder="Description" name="description" formControlName="description"></textarea>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput type="number" min="0" max="10" step="0.1" placeholder="IMDb Rating" name="rating"
+            formControlName="rating">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="IMDb Link" name="urlIMDb" formControlName="urlIMDb">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-select placeholder="Genre" formControlName="genre">
+            <mat-option value="Action">Action</mat-option>
+            <mat-option value="Adventure">Adventure</mat-option>
+            <mat-option value="Science Fiction">Science Fiction</mat-option>
+            <mat-option value="Romance">Romance</mat-option>
+            <mat-option value="Horror">Horror</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button type="submit" color="accent" mat-raised-button>Save</button>
+        <button type="reset" color="warn" mat-raised-button>Cancel</button>
+      </mat-card-actions>
+    </form>
   </mat-card>
 </div>
