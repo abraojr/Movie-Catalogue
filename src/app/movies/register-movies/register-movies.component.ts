@@ -6,6 +6,7 @@ import { MoviesService } from "src/app/core/movies.service";
 import { AlertComponent } from "src/app/shared/component/alert/alert.component";
 import { ValidateFieldsService } from "src/app/shared/component/fields/validate-fields.service";
 import { Movie } from "src/app/shared/models/movie";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "dio-register-movies",
@@ -17,7 +18,8 @@ export class RegisterMoviesComponent implements OnInit {
   register: FormGroup;
   genres: Array<string>;
 
-  constructor(public validation: ValidateFieldsService, public dialog: MatDialog, private fb: FormBuilder, private movieService: MoviesService) {
+  constructor(public validation: ValidateFieldsService, public dialog: MatDialog, private fb: FormBuilder,
+    private movieService: MoviesService, private router: Router) {
   }
 
   get f() {
@@ -63,8 +65,27 @@ export class RegisterMoviesComponent implements OnInit {
           } as Alert
         };
         const dialogRef = this.dialog.open(AlertComponent, config);
+        dialogRef.afterClosed().subscribe({
+          next: (option: boolean) => {
+            if (option) {
+              this.router.navigateByUrl("movies");
+            } else {
+              this.resetForm();
+            }
+          }
+        });
       },
-      error: () => alert("ERROR ON SAVE")
+      error: () => {
+        const config = {
+          data: {
+            title: "Error when saving the register!",
+            description: "We could not save your registration, please try again later.",
+            btnSuccessColor: "warn",
+            btnSuccess: "Close",
+          } as Alert
+        };
+        this.dialog.open(AlertComponent, config);
+      }
     })
   }
 }
