@@ -7,8 +7,8 @@
         <dio-input-text title="Image Link" [formGroup]="register" controlName="urlImage"></dio-input-text>
         <dio-input-date title="Release Date" [formGroup]="register" controlName="releaseDate"></dio-input-date>
         <dio-input-textarea title="Description" [formGroup]="register" controlName="description"></dio-input-textarea>
-        <dio-input-number title="IMDb Rating" [formGroup]="register" controlName="rating"></dio-input-number>
-        <dio-input-text title="IMDb Link" [formGroup]="register" step="0.1" controlName="urlIMDb"></dio-input-text>
+        <dio-input-number title="IMDb Rating" [formGroup]="register" [step]="0.1" controlName="rating"></dio-input-number>
+        <dio-input-text title="IMDb Link" [formGroup]="register" controlName="urlIMDb"></dio-input-text>
         <dio-input-select title="Genre" [formGroup]="register" controlName="genre"></dio-input-select>
       </mat-card-content>
       <mat-card-actions>

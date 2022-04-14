@@ -4,8 +4,8 @@
     <mat-error *ngIf="validation.hasErrorValidate(formControl,'required')">
       Required field.</mat-error>
     <mat-error *ngIf="validation.hasErrorValidate(formControl,'minlength')">
-      Field must be at least 2 characters.</mat-error>
+      Field must be at least {{validation.lengthValidate(formControl,'minlength')}} characters.</mat-error>
     <mat-error *ngIf="validation.hasErrorValidate(formControl,'maxlength')">
-      Field can have a maximum of 256 characters.</mat-error>
+      Field can have a maximum of {{validation.lengthValidate(formControl,'maxlength')}} characters.</mat-error>
   </mat-form-field>
 </div>

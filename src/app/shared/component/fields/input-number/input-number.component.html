@@ -5,8 +5,8 @@
     <mat-error *ngIf="validation.hasErrorValidate(formControl,'required')">
       Required field.</mat-error>
     <mat-error *ngIf="validation.hasErrorValidate(formControl,'min')">
-      Field must have at least the value 0.</mat-error>
+      Field must have at least the value {{validation.lengthValidate(formControl,'min')}}.</mat-error>
     <mat-error *ngIf="validation.hasErrorValidate(formControl,'max')">
-      Field can have a maximum value of 10.</mat-error>
+      Field can have a maximum value of {{validation.lengthValidate(formControl,'max')}}.</mat-error>
   </mat-form-field>
 </div>
