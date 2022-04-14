@@ -3,57 +3,13 @@
   <mat-card class="center width50">
     <form [formGroup]="register" (ngSubmit)="save()" (ngReset)="resetForm()">
       <mat-card-content>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Title" name="title" formControlName="title">
-          <mat-error *ngIf="validation.hasErrorValidate(f['title'],'required')">
-            Required field.</mat-error>
-          <mat-error *ngIf="validation.hasErrorValidate(f['title'],'minlength')">
-            Field must be at least 2 characters.</mat-error>
-          <mat-error *ngIf="validation.hasErrorValidate(f['title'],'maxlength')">
-            Field can have a maximum of 256 characters.</mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Image Link" name="urlImage" formControlName="urlImage">
-          <mat-error *ngIf="validation.hasErrorValidate(f['urlImage'],'minlength')">
-            Field must be at least 10 characters.</mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <input matInput readonly [matDatepicker]="picker" placeholder="Release Date" name="releaseDate"
-            formControlName="releaseDate" (click)="picker.open()">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="validation.hasErrorValidate(f['releaseDate'],'required')">
-            Required field.</mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <textarea matInput placeholder="Description" name="description" formControlName="description"></textarea>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <input matInput type="number" min="0" max="10" step="0.1" placeholder="IMDb Rating" name="rating"
-            formControlName="rating">
-          <mat-error *ngIf="validation.hasErrorValidate(f['rating'],'required')">
-            Required field.</mat-error>
-          <mat-error *ngIf="validation.hasErrorValidate(f['rating'],'min')">
-            Field must have at least the value 0.</mat-error>
-          <mat-error *ngIf="validation.hasErrorValidate(f['rating'],'max')">
-            Field can have a maximum value of 10.</mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="IMDb Link" name="urlIMDb" formControlName="urlIMDb">
-          <mat-error *ngIf="validation.hasErrorValidate(f['urlIMDb'],'minlength')">
-            Field must be at least 10 characters.</mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <mat-select placeholder="Genre" formControlName="genre">
-            <mat-option value="Action">Action</mat-option>
-            <mat-option value="Adventure">Adventure</mat-option>
-            <mat-option value="Science Fiction">Science Fiction</mat-option>
-            <mat-option value="Romance">Romance</mat-option>
-            <mat-option value="Horror">Horror</mat-option>
-          </mat-select>
-          <mat-error *ngIf="validation.hasErrorValidate(f['genre'],'required')">
-            Required field.</mat-error>
-        </mat-form-field>
+        <dio-input-text title="Title" [formGroup]="register" controlName="title"></dio-input-text>
+        <dio-input-text title="Image Link" [formGroup]="register" controlName="urlImage"></dio-input-text>
+        <dio-input-date title="Release Date" [formGroup]="register" controlName="releaseDate"></dio-input-date>
+        <dio-input-textarea title="Description" [formGroup]="register" controlName="description"></dio-input-textarea>
+        <dio-input-number title="IMDb Rating" [formGroup]="register" controlName="rating"></dio-input-number>
+        <dio-input-text title="IMDb Link" [formGroup]="register" step="0.1" controlName="urlIMDb"></dio-input-text>
+        <dio-input-select title="Genre" [formGroup]="register" controlName="genre"></dio-input-select>
       </mat-card-content>
       <mat-card-actions>
         <button type="submit" color="accent" mat-raised-button>Save</button>

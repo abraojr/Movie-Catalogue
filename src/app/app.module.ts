@@ -11,13 +11,14 @@ import { MaterialModule } from './shared/material/material.module';
 import { HeaderComponent } from './shared/component/header/header.component';
 import { MoviesModule } from './movies/movies.module';
 import { TableComponent } from './shared/component/table/table.component';
+import { FieldsModule } from './shared/component/fields/fields.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     FooterComponent,
     TableComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,6 +27,7 @@ import { TableComponent } from './shared/component/table/table.component';
     MaterialModule,
     AppRoutingModule,
     MoviesModule,
+    FieldsModule
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt' }],
   bootstrap: [AppComponent]

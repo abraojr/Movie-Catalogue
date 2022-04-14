@@ -1,0 +1,13 @@
+<div [formGroup]="formGroup">
+  <mat-form-field class="full-width">
+    <mat-select [placeholder]="title" [formControlName]="controlName">
+      <mat-option value="Action">Action</mat-option>
+      <mat-option value="Adventure">Adventure</mat-option>
+      <mat-option value="Science Fiction">Science Fiction</mat-option>
+      <mat-option value="Romance">Romance</mat-option>
+      <mat-option value="Horror">Horror</mat-option>
+    </mat-select>
+    <mat-error *ngIf="validation.hasErrorValidate(formGroup,'required')">
+      Required field.</mat-error>
+  </mat-form-field>
+</div>
