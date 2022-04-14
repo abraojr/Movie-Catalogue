@@ -13,6 +13,10 @@ export class RegisterMoviesComponent implements OnInit {
   constructor(private fb: FormBuilder) {
   }
 
+  get f() {
+    return this.register.controls;
+  }
+
   ngOnInit(): void {
     this.register = this.fb.group({
       title: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
@@ -26,6 +30,7 @@ export class RegisterMoviesComponent implements OnInit {
   }
 
   save(): void {
+    this.register.markAllAsTouched();
     if (this.register.invalid) {
       return;
     }
