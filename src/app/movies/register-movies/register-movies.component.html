@@ -1,7 +1,7 @@
 <mat-toolbar class="app-title">Register Movie</mat-toolbar>
 <div class="main-div">
   <mat-card class="center width50">
-    <form [formGroup]="register" (ngSubmit)="save()" (ngReset)="resetForm()">
+    <form autocomplete="off" novalidate [formGroup]="register" (ngSubmit)="save()" (ngReset)="resetForm()">
       <mat-card-content>
         <dio-input-text title="Title" [formGroup]="register" controlName="title"></dio-input-text>
         <dio-input-text title="Image Link" [formGroup]="register" controlName="urlImage"></dio-input-text>
@@ -9,7 +9,7 @@
         <dio-input-textarea title="Description" [formGroup]="register" controlName="description"></dio-input-textarea>
         <dio-input-number title="IMDb Rating" [formGroup]="register" [step]="0.1" controlName="rating"></dio-input-number>
         <dio-input-text title="IMDb Link" [formGroup]="register" controlName="urlIMDb"></dio-input-text>
-        <dio-input-select title="Genre" [formGroup]="register" controlName="genre"></dio-input-select>
+        <dio-input-select title="Genre" [options]="genres" [formGroup]="register" controlName="genre"></dio-input-select>
       </mat-card-content>
       <mat-card-actions>
         <button type="submit" color="accent" mat-raised-button>Save</button>

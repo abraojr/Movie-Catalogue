@@ -10,6 +10,7 @@ import { ValidateFieldsService } from "src/app/shared/component/fields/validate-
 export class RegisterMoviesComponent implements OnInit {
 
   register: FormGroup;
+  genres: Array<string>;
 
   constructor(public validation: ValidateFieldsService, private fb: FormBuilder) {
   }
@@ -28,6 +29,8 @@ export class RegisterMoviesComponent implements OnInit {
       urlIMDb: ["", [Validators.minLength(10)]],
       genre: ["", [Validators.required]]
     });
+
+    this.genres = ["Action", "Romance", "Adventure", "Horror", "Science Fiction", "Comedy", "Drama"];
   }
 
   save(): void {
