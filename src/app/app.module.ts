@@ -1,18 +1,33 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FooterComponent } from './shared/component/footer/footer.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MaterialModule } from './shared/material/material.module';
+import { HeaderComponent } from './shared/component/header/header.component';
+import { MoviesModule } from './movies/movies.module';
+import { TableComponent } from './shared/component/table/table.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FooterComponent,
+    TableComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    LayoutModule,
+    MaterialModule,
+    AppRoutingModule,
+    MoviesModule,
   ],
-  providers: [],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
