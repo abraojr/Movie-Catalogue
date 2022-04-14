@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { LayoutModule } from '@angular/cdk/layout';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { FooterComponent } from './shared/component/footer/footer.component';
-import { LayoutModule } from '@angular/cdk/layout';
 import { MaterialModule } from './shared/material/material.module';
 import { HeaderComponent } from './shared/component/header/header.component';
 import { MoviesModule } from './movies/movies.module';
@@ -23,6 +25,7 @@ import { FieldsModule } from './shared/component/fields/fields.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     LayoutModule,
     MaterialModule,
     AppRoutingModule,

@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MoviesService } from "src/app/core/movies.service";
 import { ValidateFieldsService } from "src/app/shared/component/fields/validate-fields.service";
+import { Movie } from "src/app/shared/models/movie";
 
 @Component({
   selector: "dio-register-movies",
@@ -12,12 +14,12 @@ export class RegisterMoviesComponent implements OnInit {
   register: FormGroup;
   genres: Array<string>;
 
-  constructor(public validation: ValidateFieldsService, private fb: FormBuilder) {
-  }
+  constructor(public validation: ValidateFieldsService, private fb: FormBuilder, private movieService: MoviesService) {
+  };
 
   get f() {
     return this.register.controls;
-  }
+  };
 
   ngOnInit(): void {
     this.register = this.fb.group({
@@ -31,17 +33,25 @@ export class RegisterMoviesComponent implements OnInit {
     });
 
     this.genres = ["Action", "Romance", "Adventure", "Horror", "Science Fiction", "Comedy", "Drama"];
-  }
+  };
 
-  save(): void {
+  submit(): void {
     this.register.markAllAsTouched();
     if (this.register.invalid) {
       return;
     }
-    alert("SUCCESS!!\n\n" + JSON.stringify(this.register.value, null, 4));
-  }
+    const movie = this.register.getRawValue() as Movie;
+    this.save(movie);
+  };
 
   resetForm(): void {
     this.register.reset();
-  }
-}
+  };
+
+  private save(movie: Movie): void {
+    this.movieService.save(movie).subscribe({
+      next: () => alert("SUCCESS"),
+      error: () => alert("ERROR ON SAVE")
+    });
+  };
+};
