@@ -48,7 +48,12 @@ export class RegisterMoviesComponent implements OnInit {
       return;
     }
     const movie = this.register.getRawValue() as Movie;
-    this.save(movie);
+    if (this.id) {
+      movie.id = this.id;
+      this.edit(movie);
+    } else {
+      this.save(movie);
+    }
   }
 
   resetForm(): void {
@@ -107,6 +112,36 @@ export class RegisterMoviesComponent implements OnInit {
           data: {
             title: "Error when saving the register!",
             description: "We could not save your registration, please try again later.",
+            btnSuccessColor: "warn",
+            btnSuccess: "Close",
+          } as Alert
+        };
+        this.dialog.open(AlertComponent, config);
+      }
+    })
+  }
+
+  private edit(movie: Movie): void {
+    this.moviesService.edit(movie).subscribe({
+      next: () => {
+        const config = {
+          data: {
+            description: "Your registration has been successfully updated!",
+            btnSuccess: "Go to listing"
+          } as Alert
+        };
+        const dialogRef = this.dialog.open(AlertComponent, config);
+        dialogRef.afterClosed().subscribe({
+          next: () => {
+            this.router.navigateByUrl("movies");
+          }
+        });
+      },
+      error: () => {
+        const config = {
+          data: {
+            title: "Error when editing the register!",
+            description: "We could not edit your registration, please try again later.",
             btnSuccessColor: "warn",
             btnSuccess: "Close",
           } as Alert
