@@ -6,6 +6,12 @@
   <mat-list-item> Rating: <a [href]="movie.urlIMDb" target="_blank"> {{movie.rating}}</a> </mat-list-item>
   <img mat-card-image [src]="movie.urlImage || withoutImage">
 </mat-list>
+<mat-card>
+  <mat-card-actions>
+    <button type="submit" color="accent" mat-raised-button>Edit</button>
+    <button type="reset" color="warn" mat-raised-button (click)="delete()">Delete</button>
+  </mat-card-actions>
+</mat-card>
 
 <ng-template #noRegister>
   <h1 class="full-width main-div">No movies found!</h1>
