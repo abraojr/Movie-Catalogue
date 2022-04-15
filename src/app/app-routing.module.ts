@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MoviesModule } from './movies/movies.module';
 import { RegisterMoviesComponent } from './movies/register-movies/register-movies.component';
 import { ListMoviesComponent } from './movies/list-movies/list-movies.component';
+import { ViewMoviesComponent } from './movies/view-movies/view-movies.component';
 
 const routes: Routes = [
 
@@ -20,7 +21,20 @@ const routes: Routes = [
       },
       {
         path: 'register',
-        component: RegisterMoviesComponent,
+        children: [
+          {
+            path: '',
+            component: RegisterMoviesComponent
+          },
+          {
+            path: ':id',
+            component: RegisterMoviesComponent
+          }
+        ]
+      },
+      {
+        path: ':id',
+        component: ViewMoviesComponent,
         pathMatch: 'full'
       }
     ]
@@ -36,4 +50,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { };
+export class AppRoutingModule { }

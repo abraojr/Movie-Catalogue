@@ -24,4 +24,8 @@ export class MoviesService {
     const configParams = this.configService.configurateParameters(config);
     return this.http.get<Movie[]>(url, { params: configParams });
   };
+
+  visualize(id: number): Observable<Movie> {
+    return this.http.get<Movie>(url + id);
+  };
 };
