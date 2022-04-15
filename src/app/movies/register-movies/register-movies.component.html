@@ -1,6 +1,6 @@
 <mat-toolbar class="app-title">Register Movie</mat-toolbar>
 <div class="main-div">
-  <mat-card class="center width50">
+  <mat-card class="center width50" *ngIf="register">
     <form autocomplete="off" novalidate [formGroup]="register" (ngSubmit)="submit()" (ngReset)="resetForm()">
       <mat-card-content>
         <dio-input-text title="Title" [formGroup]="register" controlName="title"></dio-input-text>

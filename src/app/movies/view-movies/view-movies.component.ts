@@ -25,6 +25,10 @@ export class ViewMoviesComponent implements OnInit {
     this.visualize();
   }
 
+  edit(): void {
+    this.router.navigateByUrl("/movies/register/" + this.id);
+  }
+
   delete(): void {
     const config = {
       data: {

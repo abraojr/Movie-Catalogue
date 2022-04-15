@@ -6,7 +6,7 @@ import { MoviesService } from "src/app/core/movies.service";
 import { AlertComponent } from "src/app/shared/component/alert/alert.component";
 import { ValidateFieldsService } from "src/app/shared/component/fields/validate-fields.service";
 import { Movie } from "src/app/shared/models/movie";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: "dio-register-movies",
@@ -15,11 +15,12 @@ import { Router } from '@angular/router';
 })
 export class RegisterMoviesComponent implements OnInit {
 
+  id: number;
   register: FormGroup;
   genres: Array<string>;
 
   constructor(public validation: ValidateFieldsService, public dialog: MatDialog, private fb: FormBuilder,
-    private movieService: MoviesService, private router: Router) {
+    private moviesService: MoviesService, private router: Router, private activatedRoute: ActivatedRoute) {
   }
 
   get f() {
@@ -27,15 +28,16 @@ export class RegisterMoviesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.register = this.fb.group({
-      title: ["", [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
-      urlImage: ["", [Validators.minLength(10)]],
-      releaseDate: ["", [Validators.required]],
-      description: [""],
-      rating: [0, [Validators.required, Validators.min(0), Validators.max(10)]],
-      urlIMDb: ["", [Validators.minLength(10)]],
-      genre: ["", [Validators.required]]
-    });
+
+    this.id = this.activatedRoute.snapshot.params["id"];
+
+    if (this.id) {
+      this.moviesService.visualize(this.id).subscribe({
+        next: (movie: Movie) => this.createForm(movie)
+      });
+    } else {
+      this.createForm(this.createBlankMovie());
+    }
 
     this.genres = ["Action", "Romance", "Adventure", "Horror", "Science Fiction", "Comedy", "Drama"];
   }
@@ -53,8 +55,33 @@ export class RegisterMoviesComponent implements OnInit {
     this.register.reset();
   }
 
+  private createForm(movie: Movie): void {
+    this.register = this.fb.group({
+      title: [movie.title, [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
+      urlImage: [movie.urlImage, [Validators.minLength(10)]],
+      releaseDate: [movie.releaseDate, [Validators.required]],
+      description: [movie.description],
+      rating: [movie.rating, [Validators.required, Validators.min(0), Validators.max(10)]],
+      urlIMDb: [movie.urlIMDb, [Validators.minLength(10)]],
+      genre: [movie.genre, [Validators.required]]
+    });
+  }
+
+  private createBlankMovie(): Movie {
+    return {
+      id: null,
+      title: null,
+      releaseDate: null,
+      urlImage: null,
+      description: null,
+      rating: null,
+      urlIMDb: null,
+      genre: null,
+    } as Movie
+  }
+
   private save(movie: Movie): void {
-    this.movieService.save(movie).subscribe({
+    this.moviesService.save(movie).subscribe({
       next: () => {
         const config = {
           data: {
